@@ -1,5 +1,14 @@
 package app.config;
 
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : ScreeType.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : swing 상단 팀 정보 이벤트 동적 추가 삭제를 위한 클래스
+ */
+
 // 화면 description("화면명", "클래스")
 public enum ScreenType {
     TEAM1("1팀", "app.form.TeamForm"),

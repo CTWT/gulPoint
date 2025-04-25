@@ -1,5 +1,14 @@
 package app.login;
 
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : LoginForm.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : 로그인 화면 form
+ */
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import app.dbConnect.DBManager;
+import app.dbConnect.LoginDB;
 import app.form.MainForm;
 import app.frame.BaseFrame;
 
@@ -55,7 +64,7 @@ public class LoginForm extends BaseFrame {
         JButton loginBtn = new JButton("로그인");
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 1; // 두 칸 합치기
+        gbc.gridwidth = 2; // 두 칸 합치기
         gbc.anchor = GridBagConstraints.CENTER;
         add(loginBtn, gbc);
 
@@ -65,7 +74,7 @@ public class LoginForm extends BaseFrame {
     private void login() {
         String username = userNameField.getText();
         String password = new String(userPasswordField.getPassword());
-        boolean result = DBManager.login(username, password);
+        boolean result = LoginDB.login(username, password);
 
         if (result) {
             JOptionPane.showMessageDialog(this, "로그인 성공");

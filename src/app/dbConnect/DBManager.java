@@ -1,8 +1,19 @@
 package app.dbConnect;
 
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
+
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : DBManager.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : MariaDB와 연결 된 connection
+ */
 
 public class DBManager {
 
@@ -32,20 +43,6 @@ public class DBManager {
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASS);
-    }
-
-    public static boolean login(String username, String password) {
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-        try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            ResultSet rs = pstmt.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public static void main(String[] args) {

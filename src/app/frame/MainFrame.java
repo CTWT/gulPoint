@@ -10,6 +10,15 @@ import java.lang.reflect.Constructor;
 
 import app.config.ScreenType;
 
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : MainFrame.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : swing 중앙 화면 이벤트 제어
+ */
+
 public class MainFrame extends JPanel {
 
     private static MainFrame instance;

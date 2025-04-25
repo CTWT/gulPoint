@@ -2,9 +2,17 @@ package app.frame;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : Footer.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : swing 하단 출력 고정 메뉴 바 
+ */
 
 public class FooterFrame extends JPanel {
 

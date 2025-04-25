@@ -1,8 +1,18 @@
 package app.frame;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-import javax.swing.*;
+/*
+ * 생성자 : 신인철
+ * 생성일 : 25.04.24
+ * 파일명 : HeaderFrame.java
+ * 수정자 : 
+ * 수정일 :
+ * 설명 : swing 상단 고정 메뉴바
+ */
 
 public class HeaderFrame extends JPanel {
 
