@@ -40,7 +40,6 @@ public class MainFrame extends JPanel {
         // 화면이 이미 추가되어 있는 경우 화면만 전환
         if (screenMap.containsKey(name)) {
             cardLayout.show(this, name);
-            System.out.println("화면그렸니?");
         } else {
             // 화면이 없다면 동적으로 추가 후 전환
             JPanel screen = createScreen(name);
@@ -50,7 +49,6 @@ public class MainFrame extends JPanel {
             revalidate(); // 레이아웃 갱신
             repaint(); // 화면 다시 그리기
             cardLayout.show(this, name);
-            System.out.println("화면그렸니?2");
         }
     }
 

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,7 +24,7 @@ import app.dbConnect.TeamDB;
 public class TeamForm extends JPanel {
 
     private JPanel memberListPanel;
-    private List<JLabel> memberLabels = new ArrayList<>();
+    private List<JButton> memberButtons = new ArrayList<>();
     private int teamNum;
 
     /**
@@ -39,7 +38,7 @@ public class TeamForm extends JPanel {
         memberListPanel.setLayout(new BoxLayout(memberListPanel, BoxLayout.Y_AXIS));
         add(new JScrollPane(memberListPanel), BorderLayout.CENTER);
 
-        TeamDB.loadTeamMembersFromDB(teamNum, memberListPanel, memberLabels);
+        TeamDB.loadTeamMembersFromDB(teamNum, memberListPanel, memberButtons);
 
         JButton addButton = new JButton("팀원 추가");
         JButton removeButton = new JButton("팀원 삭제");
@@ -47,7 +46,7 @@ public class TeamForm extends JPanel {
         addButton.addActionListener(e -> {
             String input = JOptionPane.showInputDialog(this, "추가할 팀원 이름을 입력하세요:");
             if (input != null && !input.trim().isEmpty()) {
-                TeamDB.saveToDB(teamNum, input.trim(), memberListPanel, memberLabels);
+                TeamDB.saveToDB(teamNum, input.trim(), memberListPanel, memberButtons);
                 revalidate();
                 repaint();
             }
@@ -62,11 +61,10 @@ public class TeamForm extends JPanel {
     }
 
     private void removeLastMemberField() {
-        if (!memberLabels.isEmpty()) {
-            JLabel lastLabel = memberLabels.remove(memberLabels.size() - 1);
-            memberListPanel.remove(lastLabel);
-            TeamDB.deleteFromDB(teamNum, lastLabel.getText(), memberListPanel, memberLabels); // Updated to use int for
-                                                                                              // teamNum
+        if (!memberButtons.isEmpty()) {
+            JButton lastButton = memberButtons.remove(memberButtons.size() - 1);
+            memberListPanel.remove(lastButton);
+            TeamDB.deleteFromDB(teamNum, lastButton.getText(), memberListPanel, memberButtons);
             revalidate();
             repaint();
         }

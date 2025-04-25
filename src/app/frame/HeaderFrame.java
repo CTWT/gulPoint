@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import app.config.ScreenType;
+
 /*
  * 생성자 : 신인철
  * 생성일 : 25.04.24
@@ -20,8 +22,12 @@ public class HeaderFrame extends JPanel {
         setPreferredSize(new Dimension(800, 50)); // 상단 영역 크기 지정
         setBackground(Color.LIGHT_GRAY); // 배경색 지정
 
-        // 버튼 이름 배열
-        String[] teamNames = { "1팀", "2팀", "3팀", "4팀", "5팀" };
+        String[] teamNames = new String[ScreenType.values().length];
+
+        for (int i = 0; i < ScreenType.values().length; i++) {
+            ScreenType screenType = ScreenType.values()[i];
+            teamNames[i] = screenType.getName();
+        }
 
         // 각 팀 버튼 생성
         for (String teamName : teamNames) {

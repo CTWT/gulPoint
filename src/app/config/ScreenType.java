@@ -10,11 +10,13 @@ package app.config;
  */
 
 // 화면 description("화면명", "클래스")
+// enum값을 추가만 하면 문제없이 팀을 증감 할 수 있다.
 public enum ScreenType {
     TEAM1("1팀", "app.form.TeamForm"),
     TEAM2("2팀", "app.form.TeamForm"),
     TEAM3("3팀", "app.form.TeamForm"),
     TEAM4("4팀", "app.form.TeamForm"),
+    TEAM9("9팀", "app.form.TeamForm"),
     TEAM5("5팀", "app.form.TeamForm"),;
 
     private final String name;

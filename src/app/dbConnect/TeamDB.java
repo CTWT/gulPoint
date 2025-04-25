@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import javax.swing.JLabel;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /*
@@ -21,12 +22,12 @@ public class TeamDB {
 
     /**
      * @param teamNum         조회할 팀 번호
-     * @param memberListPanel 팀원 JLabel들을 담는 JPanel
-     * @param memberLabels    팀원 JLabel 리스트
+     * @param memberListPanel 팀원 JButton들을 담는 JPanel
+     * @param memberButtons   팀원 JButton 리스트
      */
-    public static void loadTeamMembersFromDB(int teamNum, JPanel memberListPanel, List<JLabel> memberLabels) {
+    public static void loadTeamMembersFromDB(int teamNum, JPanel memberListPanel, List<JButton> memberButtons) {
         memberListPanel.removeAll();
-        memberLabels.clear();
+        memberButtons.clear();
         try (Connection conn = DBManager.getConnection();
                 PreparedStatement pstmt = conn
                         .prepareStatement("SELECT teamUserName FROM team WHERE teamNum = ?")) {
@@ -34,9 +35,13 @@ public class TeamDB {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("teamUserName");
-                JLabel label = new JLabel(name);
-                memberLabels.add(label);
-                memberListPanel.add(label);
+                JButton btn = new JButton(name);
+                btn.addActionListener(e -> {
+                    System.out.println("RIdkdkdkdk");
+                });
+                memberButtons.add(btn);
+                memberListPanel.add(btn);
+                memberListPanel.add(Box.createVerticalStrut(10));
             }
             memberListPanel.revalidate();
             memberListPanel.repaint();
@@ -48,20 +53,21 @@ public class TeamDB {
     /**
      * @param teamNum         팀 번호
      * @param name            추가할 팀원 이름
-     * @param memberListPanel 팀원 JLabel들을 담는 JPanel
-     * @param memberLabels    팀원 JLabel 리스트
+     * @param memberListPanel 팀원 JButton들을 담는 JPanel
+     * @param memberButtons   팀원 JButton 리스트
      */
-    public static void saveToDB(int teamNum, String name, JPanel memberListPanel, List<JLabel> memberLabels) {
+    public static void saveToDB(int teamNum, String name, JPanel memberListPanel, List<JButton> memberButtons) {
         try (Connection conn = DBManager.getConnection();
                 PreparedStatement pstmt = conn
                         .prepareStatement("INSERT INTO team (teamNum, teamUserName) VALUES (?, ?)")) {
             pstmt.setInt(1, teamNum);
             pstmt.setString(2, name);
             pstmt.executeUpdate();
-            // Add new member label to panel and list
-            JLabel label = new JLabel(name);
-            memberLabels.add(label);
-            memberListPanel.add(label);
+
+            JButton btn = new JButton(name);
+            memberButtons.add(btn);
+            memberListPanel.add(btn);
+
             memberListPanel.revalidate();
             memberListPanel.repaint();
         } catch (Exception e) {
@@ -72,26 +78,26 @@ public class TeamDB {
     /**
      * @param teamNum         팀 번호
      * @param name            삭제할 팀원 이름
-     * @param memberListPanel 팀원 JLabel들을 담는 JPanel
-     * @param memberLabels    팀원 JLabel 리스트
+     * @param memberListPanel 팀원 JButton들을 담는 JPanel
+     * @param memberButtons   팀원 JButton 리스트
      */
-    public static void deleteFromDB(int teamNum, String name, JPanel memberListPanel, List<JLabel> memberLabels) {
+    public static void deleteFromDB(int teamNum, String name, JPanel memberListPanel, List<JButton> memberButtons) {
         try (Connection conn = DBManager.getConnection();
                 PreparedStatement pstmt = conn
                         .prepareStatement("DELETE FROM team WHERE teamNum = ? AND teamUserName = ? LIMIT 1")) {
             pstmt.setInt(1, teamNum);
             pstmt.setString(2, name);
             pstmt.executeUpdate();
-            // Remove member label from panel and list
-            JLabel toRemove = null;
-            for (JLabel label : memberLabels) {
-                if (label.getText().equals(name)) {
-                    toRemove = label;
+
+            JButton toRemove = null;
+            for (JButton btn : memberButtons) {
+                if (btn.getText().equals(name)) {
+                    toRemove = btn;
                     break;
                 }
             }
             if (toRemove != null) {
-                memberLabels.remove(toRemove);
+                memberButtons.remove(toRemove);
                 memberListPanel.remove(toRemove);
                 memberListPanel.revalidate();
                 memberListPanel.repaint();
