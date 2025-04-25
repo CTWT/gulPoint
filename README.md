@@ -19,28 +19,28 @@
 
 <pre>
   <code>
-    .gitignore
+.gitignore
 
-    # 클래스파일
-    *.class
+# 클래스파일
+*.class
 
-    # 빌드 디렉토리
-    /bin/
-    /build/
-    /out/
+# 빌드 디렉토리
+/bin/
+/build/
+/out/
 
-    # 라이브러리 디렉토리
-    /lib/
+# 라이브러리 디렉토리
+/lib/
 
-    # 로그파일
-    *.log
+# 로그파일
+*.log
 
-    # 환경설정 파일
-    *.properties
+# 환경설정 파일
+*.properties
 
-    # VSCode 설정 폴더
-    .vscode/
-    mariadb-java-client-3.3.2.jar
+# VSCode 설정 폴더
+.vscode/
+mariadb-java-client-3.3.2.jar
 
   </code>
 </pre>
