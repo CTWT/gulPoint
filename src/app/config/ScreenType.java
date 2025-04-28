@@ -16,8 +16,7 @@ public enum ScreenType {
     TEAM2("2팀", "app.form.TeamForm"),
     TEAM3("3팀", "app.form.TeamForm"),
     TEAM4("4팀", "app.form.TeamForm"),
-    TEAM9("9팀", "app.form.TeamForm"),
-    TEAM5("5팀", "app.form.TeamForm"),;
+    TEAM5("5팀", "app.form.TeamForm");
 
     private final String name;
     private final String className;

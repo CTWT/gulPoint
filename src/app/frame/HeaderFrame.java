@@ -22,6 +22,15 @@ public class HeaderFrame extends JPanel {
         setPreferredSize(new Dimension(800, 50)); // 상단 영역 크기 지정
         setBackground(Color.LIGHT_GRAY); // 배경색 지정
 
+        // 홈 화면 버튼만 만들어서 이용
+        String homePage = "홈화면";
+        JButton homeButton = new JButton(homePage);
+        add(homeButton);
+        homeButton.addActionListener(e -> {
+            System.out.println("홈화면 입니다.");
+            MainFrame.getInstance().showPage(homePage);
+        });
+
         String[] teamNames = new String[ScreenType.values().length];
 
         for (int i = 0; i < ScreenType.values().length; i++) {

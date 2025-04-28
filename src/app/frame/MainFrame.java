@@ -57,6 +57,7 @@ public class MainFrame extends JPanel {
         for (ScreenType screenType : ScreenType.values()) {
             if (screenType.getName().equals(name)) {
                 try {
+                    System.out.println("화면 " + name);
                     // 리플렉션을 사용하여 화면 클래스 로드
                     Class<?> clazz = Class.forName(screenType.getClassName());
                     Constructor<?> constructor = clazz.getConstructor(String.class);

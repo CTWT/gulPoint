@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -37,7 +39,57 @@ public class TeamDB {
                 String name = rs.getString("teamUserName");
                 JButton btn = new JButton(name);
                 btn.addActionListener(e -> {
-                    System.out.println("RIdkdkdkdk");
+                    String input = JOptionPane.showInputDialog("점수를 입력해주세요(정수만!!!)");
+                    if (input != null && !input.trim().isEmpty()) {
+                        try {
+                            int score = Integer.parseInt(input.trim());
+                            System.out.println("입력된 점수: " + score);
+                            ScoreDB.saveScoreDB(teamNum, name, score);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "정수만 입력 가능합니다!", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+                int score = ScoreDB.loadTeamUserNameScoreDB(teamNum, name);
+                JLabel socreLabel = new JLabel("점수 : " + score);
+
+                memberButtons.add(btn);
+                memberListPanel.add(btn);
+                memberListPanel.add(socreLabel);
+                memberListPanel.add(Box.createVerticalStrut(10));
+            }
+            memberListPanel.revalidate();
+            memberListPanel.repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @param teamNum         조회할 팀 번호
+     * @param memberListPanel 팀원 JButton들을 담는 JPanel
+     * @param memberButtons   팀원 JButton 리스트
+     */
+    public static void viewAllTeamMembersFromDB(int teamNum, JPanel memberListPanel, List<JButton> memberButtons) {
+        try (Connection conn = DBManager.getConnection();
+                PreparedStatement pstmt = conn
+                        .prepareStatement("SELECT teamUserName FROM team WHERE teamNum = ?")) {
+            pstmt.setInt(1, teamNum);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("teamUserName");
+                JButton btn = new JButton(name);
+                btn.addActionListener(e -> {
+                    String input = JOptionPane.showInputDialog("점수를 입력해주세요(정수만!!!)");
+                    if (input != null && !input.trim().isEmpty()) {
+                        try {
+                            int score = Integer.parseInt(input.trim());
+                            System.out.println("입력된 점수: " + score);
+                            ScoreDB.saveScoreDB(teamNum, name, score);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "정수만 입력 가능합니다!", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 });
                 memberButtons.add(btn);
                 memberListPanel.add(btn);
@@ -88,6 +140,9 @@ public class TeamDB {
             pstmt.setInt(1, teamNum);
             pstmt.setString(2, name);
             pstmt.executeUpdate();
+
+            // 팀원 삭제시 팀원이 보유한 점수도 전체 삭제 처리
+            ScoreDB.deleteScoreDB(teamNum, name);
 
             JButton toRemove = null;
             for (JButton btn : memberButtons) {
