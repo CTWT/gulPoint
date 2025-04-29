@@ -2,10 +2,6 @@ package app.dbConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /*
  * 생성자 : 신인철
@@ -91,5 +87,25 @@ public class ScoreDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 
+     * @param teamNum 총합을 출력할 팀 번호
+     * @return
+     */
+    public static int teamScoreMoneyDB(int teamNum) {
+        int totalScore = 0;
+        try (Connection conn = DBManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement("SELECT SUM(score) FROM score WHERE teamNum = ?")) {
+            pstmt.setInt(1, teamNum);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalScore = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalScore;
     }
 }

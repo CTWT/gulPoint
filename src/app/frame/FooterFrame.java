@@ -20,9 +20,10 @@ public class FooterFrame extends JPanel {
         setPreferredSize(new Dimension(800, 40));
         setBackground(Color.DARK_GRAY);
 
+        // 변경예정
         add(new JButton("주사위게임"));
-        add(new JButton("룰렛"));
-        add(new JButton("랜덤팀 고르기"));
+        add(new JButton("경마게임"));
+        add(new JButton("랜덤 뽑기"));
         add(new JButton("점수입력"));
         add(new JButton("팀별 점수출력"));
     }
